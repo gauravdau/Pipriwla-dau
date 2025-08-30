@@ -1,0 +1,216 @@
+doctype html>
+
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meesho Clone — Shopping Landing</title>
+  <style>
+    :root{--primary:#ff3b30;--muted:#6b7280;--card:#ffffff;--bg:#f7f7fb}
+    *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    body{margin:0;background:var(--bg);color:#111}
+    header{background:linear-gradient(90deg, #fff 0%, #fff 100%);box-shadow:0 1px 8px rgba(16,24,40,0.06);position:sticky;top:0;z-index:40}
+    .container{max-width:1100px;margin:0 auto;padding:0 16px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:42px;height:42px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    nav{display:flex;gap:12px;align-items:center}
+    .search{flex:1;display:flex;gap:8px;align-items:center;margin-left:18px}
+    .search input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #e6e6ee;background:white}
+    .btn{background:var(--primary);color:white;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}/* hero */
+.hero{display:grid;grid-template-columns:1fr 420px;gap:20px;padding:28px 0;align-items:center}
+.hero-card{background:linear-gradient(180deg,#fff,#fff);padding:28px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+.hero h1{margin:0 0 10px;font-size:28px}
+.hero p{margin:0;color:var(--muted)}
+
+/* categories */
+.cats{display:flex;gap:12px;margin:18px 0;overflow:auto;padding-bottom:6px}
+.cat{background:white;padding:10px 12px;border-radius:10px;min-width:120px;text-align:center;box-shadow:0 4px 12px rgba(8,10,20,0.04)}
+
+/* product grid */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:var(--card);border-radius:12px;padding:10px;box-shadow:0 6px 18px rgba(16,24,40,0.04);display:flex;flex-direction:column}
+.card img{width:100%;height:220px;object-fit:cover;border-radius:8px}
+.card h4{margin:8px 0 6px;font-size:16px}
+.price-row{display:flex;justify-content:space-between;align-items:center}
+.price{font-weight:700}
+.muted{color:var(--muted);font-size:13px}
+.badge{background:#eefdf6;color:#037a4b;padding:6px 8px;border-radius:8px;font-weight:600}
+
+/* cart */
+.cart-panel{position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,#fff,#fff);width:340px;max-height:70vh;border-radius:12px;padding:12px;box-shadow:0 10px 30px rgba(2,6,23,0.12);overflow:auto}
+.cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed #eee}
+.cart-item img{width:56px;height:56px;object-fit:cover;border-radius:8px}
+
+footer{margin-top:28px;padding:24px 0;color:var(--muted);text-align:center}
+
+/* responsive */
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr} .hero .hero-card{order:2}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}.cats{gap:8px}.search{display:none}.cart-panel{width:92vw;right:4vw}}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo">M</div>
+          <div>
+            <div style="font-weight:700">Meesho Clone</div>
+            <div style="font-size:12px;color:var(--muted)">Shop the look — demo</div>
+          </div>
+        </div>
+        <div style="flex:1;margin-left:12px;display:flex;align-items:center">
+          <div class="search">
+            <input id="searchInput" placeholder="Search products, e.g., kurti, shoes..." />
+            <button class="btn" id="searchBtn">Search</button>
+          </div>
+        </div>
+        <nav>
+          <button class="btn" id="cartToggle">Cart (<span id="cartCount">0</span>)</button>
+        </nav>
+      </div>
+    </div>
+  </header>  <main class="container" style="padding-bottom:40px">
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Fashion, Home & more — sahi price pe</h1>
+        <p>Trending styles, earned trust — demo Meesho-like interface. Scroll karein aur product add karein cart mein.</p>
+        <div class="cats" id="categories">
+          <div class="cat">Women Ethnic</div>
+          <div class="cat">Western</div>
+          <div class="cat">Footwear</div>
+          <div class="cat">Home</div>
+          <div class="cat">Accessories</div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+          <div class="badge">COD Available</div>
+          <div class="muted">30 days return | Free delivery above ₹499</div>
+        </div>
+      </div><div>
+    <img src="https://source.unsplash.com/collection/190727/420x420" alt="banner" style="width:100%;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06)" />
+  </div>
+</section>
+
+<section style="margin-top:20px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <h2 style="margin:0">Top Picks for you</h2>
+    <div class="muted">Showing <span id="shownCount">0</span> products</div>
+  </div>
+
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<footer>
+  © Demo Meesho Clone — This is only a front-end demo. No real transactions.
+</footer>
+
+  </main>  <!-- cart panel (hidden by default) -->  <div id="cartPanel" class="cart-panel" style="display:none">
+    <h3 style="margin:6px 0">Your Cart</h3>
+    <div id="cartList"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px">
+      <div class="muted">Total: ₹<span id="cartTotal">0</span></div>
+      <button class="btn" id="checkoutBtn">Checkout</button>
+    </div>
+  </div>  <script>
+    // Sample products (demo). For real app, this data comes from API.
+    const products = [
+      {id:1,title:'Women Floral Kurti',price:799,old:1299,img:'https://source.unsplash.com/featured/?kurti'},
+      {id:2,title:'Casual Sneakers',price:1199,old:2499,img:'https://source.unsplash.com/featured/?sneakers'},
+      {id:3,title:'Handmade Earrings',price:299,old:499,img:'https://source.unsplash.com/featured/?earrings'},
+      {id:4,title:'Printed Bedsheet',price:999,old:1599,img:'https://source.unsplash.com/featured/?bedsheet'},
+      {id:5,title:'Men Polo T-shirt',price:549,old:899,img:'https://source.unsplash.com/featured/?tshirt'},
+      {id:6,title:'Office Backpack',price:1399,old:2199,img:'https://source.unsplash.com/featured/?backpack'},
+      {id:7,title:'Sunglasses',price:349,old:599,img:'https://source.unsplash.com/featured/?sunglasses'},
+      {id:8,title:'Chef Knife Set',price:899,old:1299,img:'https://source.unsplash.com/featured/?kitchen-knife'}
+    ];
+
+    const state = {cart:[]};
+
+    function $(q){return document.querySelector(q)}
+    function $all(q){return Array.from(document.querySelectorAll(q))}
+
+    function renderProducts(list){
+      const grid = $('#productGrid'); grid.innerHTML='';
+      list.forEach(p=>{
+        const div = document.createElement('div'); div.className='card';
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.title}" />
+          <h4>${p.title}</h4>
+          <div class="muted">Free delivery • Trusted</div>
+          <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="price">₹${p.price}</div>
+              <div class="muted" style="text-decoration:line-through">₹${p.old}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="btn addBtn">Add</button>
+              <button class="muted" style="background:transparent;border:none;cursor:pointer">Share</button>
+            </div>
+          </div>
+        `;
+        div.querySelector('.addBtn').addEventListener('click',()=> addToCart(p));
+        grid.appendChild(div);
+      });
+      $('#shownCount').innerText = list.length;
+    }
+
+    function addToCart(p){
+      const found = state.cart.find(i=>i.id===p.id);
+      if(found) found.qty++;
+      else state.cart.push({...p,qty:1});
+      updateCartUI();
+      // small visual feedback
+      const count = $('#cartCount'); count.innerText = state.cart.reduce((s,i)=>s+i.qty,0);
+    }
+
+    function updateCartUI(){
+      const el = $('#cartList'); el.innerHTML='';
+      let total=0;
+      state.cart.forEach(item=>{
+        const row = document.createElement('div'); row.className='cart-item';
+        row.innerHTML = `<img src="${item.img}" alt=""><div style="flex:1"><div style="font-weight:700">${item.title}</div><div class=\"muted\">₹${item.price} × ${item.qty}</div></div><div style=\"text-align:right\"><div style=\"font-weight:700\">₹${item.price*item.qty}</div><div style=\"margin-top:8px;display:flex;gap:6px;justify-content:flex-end\"><button class=\"muted\" data-id=\"${item.id}\">-</button><button class=\"muted\" data-id=\"${item.id}\">+</button></div></div>`;
+        el.appendChild(row);
+        total += item.price*item.qty;
+      });
+      $('#cartTotal').innerText = total;
+      // attach +/- handlers
+      Array.from(el.querySelectorAll('button[data-id]')).forEach(btn=>{
+        btn.addEventListener('click',(e)=>{
+          const id = Number(e.currentTarget.dataset.id);
+          const idx = state.cart.findIndex(x=>x.id===id);
+          if(idx===-1) return;
+          if(e.currentTarget.innerText === '+') state.cart[idx].qty++;
+          else state.cart[idx].qty--;
+          if(state.cart[idx].qty<=0) state.cart.splice(idx,1);
+          updateCartUI();
+          $('#cartCount').innerText = state.cart.reduce((s,i)=>s+i.qty,0);
+        })
+      })
+    }
+
+    // search and filter
+    function doSearch(){
+      const q = $('#searchInput').value.trim().toLowerCase();
+      if(!q) return renderProducts(products);
+      const filtered = products.filter(p=>p.title.toLowerCase().includes(q));
+      renderProducts(filtered);
+    }
+
+    // cart toggle
+    $('#cartToggle').addEventListener('click',()=>{
+      const panel = $('#cartPanel'); panel.style.display = panel.style.display==='none' ? 'block' : 'none';
+      updateCartUI();
+    });
+
+    $('#searchBtn').addEventListener('click',doSearch);
+    $('#searchInput').addEventListener('keydown',(e)=>{ if(e.key==='Enter') doSearch(); });
+    $('#checkoutBtn').addEventListener('click',()=>{
+      alert('Demo checkout — no real payment. Total: ₹'+$('#cartTotal').innerText);
+    });
+
+    // init
+    renderProducts(products);
+  </script></body>
+</doctype
